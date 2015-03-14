@@ -1,19 +1,67 @@
 package ar.com.mmlabs.kairos;
 
+import android.location.Location;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity
+        implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+
+    /*Declaro objeto GoogleApiClient, utilizado en onCreate*/
+    private GoogleApiClient mGoogleApiClient;
+    /*Declaro objeto de tipo Location para almacenar la ubicacion actual*/
+    private Location mLastLocation;
+    private TextView mLongitude;
+    private TextView mLatitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mLongitude = (TextView) findViewById(R.id.txt_longitude);
+        mLatitude = (TextView) findViewById(R.id.txt_latitude);
+
+        /*Creo instancia de GoogleApiClient que permite acceder a los Google Play Services*/
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API) // Se agrega la API que voy a utilizar
+                .build();
+
+        mGoogleApiClient.connect();
     }
 
+    @Override
+    public void onConnected(Bundle bundle) {
+        /*Conectado a Google Play Services!
+        * Ingreso a esta instancia si la conexion mGoogleApiClient.connect() fue exitosa
+        * */
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+
+        if(mLastLocation != null) {
+            mLongitude.setText(String.valueOf(mLastLocation.getLongitude()));
+            mLatitude.setText(String.valueOf(mLastLocation.getLatitude()));
+        }
+     }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        System.out.println("onConnectionSuspended");
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        System.out.println("onConnectionFailed");
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -36,4 +84,6 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }
