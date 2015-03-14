@@ -3,4 +3,6 @@
 
     <string name="current_weather">Clima actual</string>
     <string name="action_settings">Configuración</string>
+    <string name="title_activity_current_weather">CurrentWeatherActivity</string>
+
 </resources>

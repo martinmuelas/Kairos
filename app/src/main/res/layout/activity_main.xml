@@ -68,4 +68,20 @@
             android:layout_marginLeft="20dp" />
     </LinearLayout>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DESCARGAR"
+        android:id="@+id/btn_descargar"
+        android:layout_gravity="center_horizontal"
+        android:onClick="onClickDescargar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/txt_result"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp" />
+
 </LinearLayout>

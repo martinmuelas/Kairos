@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -13,7 +14,8 @@ import com.google.android.gms.location.LocationServices;
 
 
 public class MainActivity extends ActionBarActivity
-        implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+        implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
+        ApiQueryTaskListener {
 
     /*Declaro objeto GoogleApiClient, utilizado en onCreate*/
     private GoogleApiClient mGoogleApiClient;
@@ -21,6 +23,7 @@ public class MainActivity extends ActionBarActivity
     private Location mLastLocation;
     private TextView mLongitude;
     private TextView mLatitude;
+    private TextView txt_result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,7 @@ public class MainActivity extends ActionBarActivity
 
         mLongitude = (TextView) findViewById(R.id.txt_longitude);
         mLatitude = (TextView) findViewById(R.id.txt_latitude);
+        txt_result = (TextView) findViewById(R.id.txt_result);
 
         /*Creo instancia de GoogleApiClient que permite acceder a los Google Play Services*/
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -51,6 +55,8 @@ public class MainActivity extends ActionBarActivity
             mLongitude.setText(String.valueOf(mLastLocation.getLongitude()));
             mLatitude.setText(String.valueOf(mLastLocation.getLatitude()));
         }
+
+
      }
 
     @Override
@@ -85,5 +91,14 @@ public class MainActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
+    public void onClickDescargar(View view){
+        ApiQueryTask task = new ApiQueryTask(this);
+        task.execute();
+    }
 
+    /*Método creado como consecuencia de implementar la interfaz ApiQueryTaskListener*/
+    @Override
+    public void onWeatherUpdated(String string) {
+        txt_result.setText(string);
+    }
 }

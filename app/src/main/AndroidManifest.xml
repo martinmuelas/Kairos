@@ -2,12 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ar.com.mmlabs.kairos" >
 
-    <!--Permiso para acceder a internet-->
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <!--Permiso para geolocalizar con GPS-->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <!--Permiso para geolocalizar sin GPS-->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!-- Permiso para acceder a internet -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Permiso para geolocalizar con GPS -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- Permiso para geolocalizar sin GPS -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -15,18 +15,23 @@
         android:label="@string/app_name"
         android:theme="@style/Base.V14.Theme.AppCompat.Light" >
 
-        <!--Necesario para usar la API de Google Play Services-->
-        <meta-data android:name="com.google.android.gms.version"
+        <!-- Necesario para usar la API de Google Play Services -->
+        <meta-data
+            android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
         <activity
             android:name=".MainActivity"
-            android:label="@string/current_weather" >
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".CurrentWeatherActivity"
+            android:label="@string/title_activity_current_weather" >
         </activity>
     </application>
 
